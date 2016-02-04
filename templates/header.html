@@ -3,11 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<style type="text/css">
-	    h1{
-	      text-align: center;
-	      background-color: #aaaaaa;
-		}
-	    	
         #v1{
             background-color: green;
         }
@@ -20,9 +15,8 @@
             background-color: grey;
         }
 
-        p { 
-          text-align: center;
-	      background-color: #aaaaaa;
+        p {
+	      background-color: #337ab7;
 	    }
 
         html, body {
@@ -44,7 +38,7 @@
                 left: 0%;
                 border: 2px solid #000000;
                 position: absolute;
-                
+
         }
 
         #center {
@@ -53,14 +47,14 @@
                 left: 10%;
                 border: 2px solid #000000;
                 float: right;
-        }       
-        
+        }
+
         #div-fuentes {
                    float: right;
                    width: 50%;
                    height: 100%;
                    overflow: scroll;
-                   padding-left: 10px;    
+                   padding-left: 10px;
         }
 
         #adjetivos {
@@ -69,9 +63,9 @@
                    width: 50%;
                    border: 2px solid #000000;
                    overflow: scroll;
-                   padding-left: 10px;    
+                   padding-left: 10px;
         }
-         
+
         #urls {
                    padding: 0;
                    top: 50px;
@@ -81,14 +75,21 @@
 
         #footer {
                 width: 100%;
-                height: 100px;
-                background:white;
-                margin-top: 10px;    
+                height: 185px;
+                background: white;
+                margin-top: 0px;
                 bottom: 00;
-                clear: both;    
                 position: absolute;
+                background-color: #337ab7;
         }
-	</style>                
+
+        #graph {
+               background-size: cover;
+               width: 100%;
+               height: 100%;
+               position: relative;
+        }
+	</style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src={{ url_for('static', filename='js/bootstrap.min.js') }}></script>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -103,12 +104,12 @@
        <li role="presentation"><a href="/contacto/">Contacto</a></li>
     </ul>
     <br>
+<div id="footer">
+    <br>
+    <br>
+    <p>Contacto: <a href="mailto:fedecarles@gmail.com">Federico Carlés</a>.</p>
+</div>
     {% block body %}{% endblock %}
-    <div id="footer">
-    {% block footer %}
-        &copy; Copyright 2010 by <a href="http://domain.invalid/">you</a>.
-    {% endblock %}
-    </div>
 </body>
 </head>
 </html>

@@ -4,42 +4,39 @@
 {% block body %}
 <div class="containter" id="left">
         <p><strong>Entidades</strong></p>
-        {% for i in entidades %}
+        {% for i in entidades[:20] %}
         <form action="" method="post">
             <button type="submit" class="list-group-item" name="entidades"
-                value="{{ i }}">{{ i }} </button>  
+                value="{{ i }}">{{ i }} </button>
 
         </form>
         {% endfor %}
 </div>
-
 </div>
 <div class="container" id="center">
-    <embed type="image/svg+xml" src={{graph_data|safe}}>
+    <embed type="image/svg+xml" id="graph" src={{graph_data|safe}}>
 </div>
 <div class="container" id="bottom">
-    <div class ="btn-group" id="adjetivos"> 
-       <p><strong>Descriptivos</strong></p>
-       {% for idx, row in desc.iterrows() %}
-       {% if row[0] <= -1 %}
-       <button type="button" class="btn btn-default" id="v-1"
-           name="adjetivos" value="{{ idx }}">{{ idx }}</button> 
-       {% elif row[0] >= 1 %}
-       <button type="button" class="btn btn-default" id="v1"
-           name="adjetivos" value="{{ idx }}">{{ idx }}</button> 
-       {% else %}
-       <button type="button" class="btn btn-default" id="v0"
-           name="adjetivos" value="{{ idx }}">{{ idx }}</button> 
-
-       {% endif %}
-       {% endfor %}
-   </div>
-
-
+    <div class ="btn-group" id="adjetivos">
+        <p><strong>Descriptivos</strong></p>
+        {% for idx, row in desc.iterrows() %}
+        {% if row[0] <= -1 %}
+        <button type="button" class="btn btn-default" id="v-1"
+            name="adjetivos" value="{{ idx }}">{{ idx }}</button>
+        {% elif row[0] >= 1 %}
+        <button type="button" class="btn btn-default" id="v1"
+            name="adjetivos" value="{{ idx }}">{{ idx }}</button>
+        {% else %}
+        <button type="button" class="btn btn-default" id="v0"
+            name="adjetivos" value="{{ idx }}">{{ idx }}
+        </button>
+        {% endif %}
+        {% endfor %}
+    </div>
 
     <div class ="btn-group" id="div-fuentes">
-        <p><strong>Fuentes</strong></p>  
-        <div class ="btn-group" id="fuentes"> 
+        <p><strong>Fuentes</strong></p>
+        <div class ="btn-group" id="fuentes">
          {% for i in fuente %}
          <button type="button" class="btn btn-default" id="fuentes"
              name="fuentes" value="{{ i }}">{{ i }}</button>
@@ -48,11 +45,11 @@
          <br>
          <br>
          <ul class="list-group" id="list-urls">
-             {% for i,j in noticias.iterrows() %}
-             <li type="button" class="list-group-item" id="urls" name="fuentes"
-             value="{{ i }}"><a href="{{ j[0] }}"</a>{{ i }}</li>
-             {% endfor %}
-         </ul>
+            {% for i,j in noticias.iterrows() %}
+            <li type="button" class="list-group-item" id="urls" name="fuentes"
+            value="{{ i }}"><a href="{{ j[0] }}"</a>{{ i }}</li>
+            {% endfor %}
+        </ul>
      </div>
 </div>
 </body>

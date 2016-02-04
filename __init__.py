@@ -3,6 +3,7 @@ from flask import request
 import sqlite3
 import pandas as pd
 import pygal
+from pygal.style import Style
 
 
 app = Flask(__name__)
@@ -42,15 +43,21 @@ def homepage():
         titulares = list(pd.unique(subset.titulo.ravel()))
         noticias = pd.DataFrame(urls[:20], titulares[:20])
 
+        custom_style = Style(background='transparent',
+                             plot_background='transparent',
+                             title_font_size=32, label_font_size=24)
+
         graph = pygal.Line(show_legend=False, x_label_rotation=20, width=1500,
-                           height=530, explicit_size=True, range=(-1, 1),
+                           explicit_size=True, range=(-1, 1),
                            background="transparent", foreground="transparent",
-                           plot_background="transparent")
+                           plot_background="transparent", margin=0,
+                           style=custom_style)
+
         graph.title = "Sentimiento para "+t
         date = set(subset['dateStamp'])
         graph.x_labels = map(str, date)
         agg = subset.groupby('dateStamp').mean()
-        graph.add(t, list(agg['valor']))
+        graph.add(t, list(agg['valor']), dots_size=10)
         graph_data = graph.render_data_uri()
 
     return render_template('index.html', entidades=entidades, texto=texto,
