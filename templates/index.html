@@ -3,12 +3,16 @@
 <body>
 {% block body %}
 <div class="containter" id="left">
-        <p><strong>Entidades</strong></p>
-        {% for i in entidades[:20] %}
+        <p><strong>Sentimiento General (Top 20 entidades)</strong></p>
+        {% for i, j in entidades[:20].iterrows() %}
         <form action="" method="post">
-            <button type="submit" class="list-group-item" name="entidades"
+            {% if j[0] < 0 %}
+            <button type="submit" class="list-group-item" id="entneg" name="entidades"
                 value="{{ i }}">{{ i }} </button>
-
+            {% elif j[0] > 0 %}
+            <button type="submit" class="list-group-item" id="entpos" name="entidades"
+                value="{{ i }}">{{ i }} </button>
+            {% endif %}
         </form>
         {% endfor %}
 </div>
@@ -18,7 +22,7 @@
 </div>
 <div class="container" id="bottom">
     <div class ="btn-group" id="adjetivos">
-        <p><strong>Descriptivos</strong></p>
+        <p><strong>Palabas asociadas</strong></p>
         {% for idx, row in desc.iterrows() %}
         {% if row[0] <= -1 %}
         <button type="button" class="btn btn-default" id="v-1"
@@ -33,12 +37,11 @@
         {% endif %}
         {% endfor %}
     </div>
-
     <div class ="btn-group" id="div-fuentes">
         <p><strong>Fuentes</strong></p>
         <div class ="btn-group" id="fuentes">
          {% for i in fuente %}
-         <button type="button" class="btn btn-default" id="fuentes"
+         <button type="button" class="btn btn-default" id="fuente"
              name="fuentes" value="{{ i }}">{{ i }}</button>
          {% endfor %}
          </div>

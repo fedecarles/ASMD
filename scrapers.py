@@ -60,44 +60,45 @@ def lanacion_scraper():
                 linesOfInterest = re.findall(r'<p>(.*?)</p>',
                                              str(linkSource))
                 valor = []
-                print titulo[0]
+
                 for lines in linesOfInterest:
-                    data_split = lines.split()
-                    entidad = re.findall(ur"([A-Z][a-zA-Záéíñóú]+(?=\s[A-Z])(?:\s[A-Z][a-zA-Záéíñóú]+)+)",
-                                         lines.decode('utf-8'), re.UNICODE)
-                    descriptives = []
-                    for word in data_split:
-                        if word in allKeyWords:
-                            descriptives.append(word)
-
-                    # if len(entidad) > 1:
-                    #         pass
-                    # elif len(entidad) == 0:
-                    #         pass
-                    # else:
-                    for eachEnt in entidad:
-                        eachEnt.replace(',', '').replace('.', '').encode('utf-8')
-                        print eachEnt
-
-                    for eachDesc in descriptives:
-                        eachDesc.lower().encode('utf-8')
-                        print eachDesc
-                        if eachDesc in positiveWords:
-                            valor = 1
-                        elif eachDesc in negativeWords:
-                            valor = -1
+                    sent_split = lines.split(".")
+                    for sent in sent_split:
+                        entidad = re.findall(ur"([A-Z][a-zA-Záéíñóú]+(?=\s[A-Z])(?:\s[A-Z][a-zA-Záéíñóú]+)+)",
+                                         sent.decode('utf-8'))
+                        if len(entidad) > 1:
+                            pass
+                        elif len(entidad) == 0:
+                            pass
                         else:
-                            valor = 0
-                        c.execute("""INSERT INTO entidades(link, titulo,
-                                  valor, fuente, unix, dateStamp, entidad,
-                                  adjetivo) VALUES(?,?,?,?,?,?,?,?)""",
-                                  (link, titulo[0], valor, fuente,
-                                   currentTime, dateStamp, eachEnt,
-                                   eachDesc))
-                        conn.commit()
+                            print entidad
+                            word_split = sent.split()
+                            descriptives = []
+                            for word in word_split:
+                                if word in allKeyWords:
+                                    descriptives.append(word)
 
-        except Exception, e:
-            print str(e)
+                            for eachEnt in entidad:
+                                eachEnt.replace(',', '').replace('.', '').encode('utf-8')
+
+                            for eachDesc in descriptives:
+                                print eachDesc
+                                eachDesc.lower().encode('utf-8')
+                                if eachDesc in positiveWords:
+                                    valor = 1
+                                elif eachDesc in negativeWords:
+                                    valor = -1
+                                else:
+                                    valor = 0
+                                c.execute("""INSERT INTO entidades(link, titulo,
+                                          valor, fuente, unix, dateStamp, entidad,
+                                          adjetivo) VALUES(?,?,?,?,?,?,?,?)""",
+                                          (link, titulo[0], valor, fuente,
+                                           currentTime, dateStamp, eachEnt,
+                                           eachDesc))
+                                conn.commit()
+
+        except Exception:
             print "Error en 2do intento"
     except Exception:
         print "Error en primer intento"
@@ -123,41 +124,42 @@ def clarin_scraper():
 
                 linesOfInterest = re.findall(r'<div class="nota">(.*?)</div>',
                                              str(linkSource))
-                print titulo[0]
                 for lines in linesOfInterest:
-                    data_split = lines.split()
-                    entidad = re.findall(ur"([A-Z][a-zA-Záéíñóú]+(?=\s[A-Z])(?:\s[A-Z][a-zA-Záéíñóú]+)+)",
-                                         lines.decode('utf-8'), re.UNICODE)
-                    descriptives = []
-                    for word in data_split:
-                        if word in allKeyWords:
-                            descriptives.append(word)
-
-                    # if len(entidad) > 1:
-                    #         pass
-                    # elif len(entidad) == 0:
-                    #         pass
-                    # else:
-                    for eachEnt in entidad:
-                        eachEnt.replace(',', '').replace('.', '').encode('utf-8')
-                        print eachEnt
-
-                    for eachDesc in descriptives:
-                        eachDesc.lower().encode('utf-8')
-                        print eachDesc
-                        if eachDesc in positiveWords:
-                            valor = 1
-                        elif eachDesc in negativeWords:
-                            valor = -1
+                    sent_split = lines.split(".")
+                    for sent in sent_split:
+                        entidad = re.findall(ur"([A-Z][a-zA-Záéíñóú]+(?=\s[A-Z])(?:\s[A-Z][a-zA-Záéíñóú]+)+)",
+                                         sent.decode('utf-8'))
+                        if len(entidad) > 1:
+                            pass
+                        elif len(entidad) == 0:
+                            pass
                         else:
-                            valor = 0
-                        c.execute("""INSERT INTO entidades(link, titulo,
-                                  valor, fuente, unix, dateStamp, entidad,
-                                  adjetivo) VALUES(?,?,?,?,?,?,?,?)""",
-                                  (link, titulo[0], valor, fuente,
-                                   currentTime, dateStamp, eachEnt,
-                                   eachDesc))
-                        conn.commit()
+                            print entidad
+                            word_split = sent.split()
+                            descriptives = []
+                            for word in word_split:
+                                if word in allKeyWords:
+                                    descriptives.append(word)
+
+                            for eachEnt in entidad:
+                                eachEnt.replace(',', '').replace('.', '').encode('utf-8')
+
+                            for eachDesc in descriptives:
+                                print eachDesc
+                                eachDesc.lower().encode('utf-8')
+                                if eachDesc in positiveWords:
+                                    valor = 1
+                                elif eachDesc in negativeWords:
+                                    valor = -1
+                                else:
+                                    valor = 0
+                                c.execute("""INSERT INTO entidades(link, titulo,
+                                          valor, fuente, unix, dateStamp, entidad,
+                                          adjetivo) VALUES(?,?,?,?,?,?,?,?)""",
+                                          (link, titulo[0], valor, fuente,
+                                           currentTime, dateStamp, eachEnt,
+                                           eachDesc))
+                                conn.commit()
 
         except Exception:
             print "Error en segundo intento"
@@ -170,9 +172,8 @@ def infobae_scraper():
         sourceCode = opener.open(page).read()
         try:
             links = re.findall(r'<link>(.*?)</link>',
-                               sourceCode.decode('iso-8859-1'))
+                               sourceCode.decode('utf-8'))
             del links[0:2]
-            print links
             for link in links:
                 linkSource = opener.open(link).read()
                 linkSource = re.sub('\s+', ' ', linkSource).strip()
@@ -185,45 +186,46 @@ def infobae_scraper():
                 valor = []
 
                 linesOfInterest = re.findall(r'description":(.*?)","articleSection"',
-                                             str(linkSource))
-                time.sleep(5)
-                print titulo[0]
+                                             str(linkSource).decode('utf-8'))
                 for lines in linesOfInterest:
-                    data_split = lines.split()
-                    entidad = re.findall(ur"([A-Z][a-zA-Záéíñóú]+(?=\s[A-Z])(?:\s[A-Z][a-zA-Záéíñóú]+)+)",
-                                         lines.decode('utf-8'), re.UNICODE)
-                    descriptives = []
-                    for word in data_split:
-                        if word in allKeyWords:
-                            descriptives.append(word)
-
-                    # if len(entidad) > 1:
-                    #         pass
-                    # elif len(entidad) == 0:
-                    #         pass
-                    # else:
-                    for eachEnt in entidad:
-                        eachEnt.replace(',', '').replace('.', '').encode('utf-8')
-                        print eachEnt
-
-                    for eachDesc in descriptives:
-                        eachDesc.lower().encode('utf-8')
-                        print eachDesc
-                        if eachDesc in positiveWords:
-                            valor = 1
-                        elif eachDesc in negativeWords:
-                            valor = -1
+                    sent_split = lines.split(".")
+                    for sent in sent_split:
+                        entidad = re.findall(ur"([A-Z][a-zA-Záéíñóú]+(?=\s[A-Z])(?:\s[A-Z][a-zA-Záéíñóú]+)+)",
+                                         sent.decode('unicode-escape'))
+                        if len(entidad) > 1:
+                            pass
+                        elif len(entidad) == 0:
+                            pass
                         else:
-                            valor = 0
-                        c.execute("""INSERT INTO entidades(link, titulo,
-                                  valor, fuente, unix, dateStamp, entidad,
-                                  adjetivo) VALUES(?,?,?,?,?,?,?,?)""",
-                                  (link, titulo[0], valor, fuente,
-                                   currentTime, dateStamp, eachEnt,
-                                   eachDesc))
-                        conn.commit()
+                            print entidad
+                            word_split = sent.split()
+                            descriptives = []
+                            for word in word_split:
+                                if word in allKeyWords:
+                                    descriptives.append(word)
 
-        except Exception:
+                            for eachEnt in entidad:
+                                eachEnt.replace(',', '').replace('.', '').encode('utf-8')
+
+                            for eachDesc in descriptives:
+                                print eachDesc
+                                eachDesc.lower().encode('utf-8')
+                                if eachDesc in positiveWords:
+                                    valor = 1
+                                elif eachDesc in negativeWords:
+                                    valor = -1
+                                else:
+                                    valor = 0
+                                c.execute("""INSERT INTO entidades(link, titulo,
+                                          valor, fuente, unix, dateStamp, entidad,
+                                          adjetivo) VALUES(?,?,?,?,?,?,?,?)""",
+                                          (link, titulo[0], valor, fuente,
+                                           currentTime, dateStamp, eachEnt,
+                                           eachDesc))
+                                conn.commit()
+
+        except Exception, e:
+            print str(e)
             print "Error en 2do intento"
     except Exception:
         print "Error en 1er intento"
@@ -244,51 +246,56 @@ def pagina12_scraper():
                 dateStamp = datetime.datetime.fromtimestamp(currentTime)\
                     .strftime('%Y-%m-%d')
                 fuente = "PAGINA 12"
-                titulo = re.findall(r'titulo cultimas">(.*)</a></span>',
+                titulo = re.findall(r'Ultimas Noticias :: (.*?)<\/title>',
                                     linkSource.decode('iso-8859-1'))
                 valor = []
 
                 linesOfInterest = re.findall(r'<div id="cuerpo"><p class="margen0">(.*?)<script type="text/javascript">',
                                              str(linkSource))
-                time.sleep(5)
-                print titulo[0]
                 for lines in linesOfInterest:
-                    data_split = lines.split()
-                    entidad = re.findall(ur"([A-Z][a-zA-Záéíñóú]+(?=\s[A-Z])(?:\s[A-Z][a-zA-Záéíñóú]+)+)",
-                                         lines.decode('iso-8859-1'), re.UNICODE)
-                    print entidad
-                    descriptives = []
-                    for word in data_split:
-                        if word in allKeyWords:
-                            descriptives.append(word)
-
-                    for eachEnt in entidad:
-                        eachEnt.replace(',', '').replace('.', '').encode('utf-8')
-                        print eachEnt
-
-                    for eachDesc in descriptives:
-                        eachDesc.lower().encode('utf-8')
-                        print eachDesc
-                        if eachDesc in positiveWords:
-                            valor = 1
-                        elif eachDesc in negativeWords:
-                            valor = -1
+                    sent_split = lines.split(".")
+                    for sent in sent_split:
+                        entidad = re.findall(ur"([A-Z][a-zA-Záéíñóú]+(?=\s[A-Z])(?:\s[A-Z][a-zA-Záéíñóú]+)+)",
+                                         sent.decode('iso-8859-1'))
+                        if len(entidad) > 1:
+                            pass
+                        elif len(entidad) == 0:
+                            pass
                         else:
-                            valor = 0
-                        c.execute("""INSERT INTO entidades(link, titulo,
-                                  valor, fuente, unix, dateStamp, entidad,
-                                  adjetivo) VALUES(?,?,?,?,?,?,?,?)""",
-                                  (link, titulo[0], valor, fuente,
-                                   currentTime, dateStamp, eachEnt,
-                                   eachDesc))
-                        conn.commit()
+                            print entidad
+                            word_split = sent.split()
+                            descriptives = []
+                            for word in word_split:
+                                if word in allKeyWords:
+                                    descriptives.append(word)
 
-        except Exception:
+                            for eachEnt in entidad:
+                                eachEnt.replace(',', '').replace('.', '').encode('utf-8')
+
+                            for eachDesc in descriptives:
+                                print eachDesc
+                                eachDesc.lower().encode('utf-8')
+                                if eachDesc in positiveWords:
+                                    valor = 1
+                                elif eachDesc in negativeWords:
+                                    valor = -1
+                                else:
+                                    valor = 0
+                                c.execute("""INSERT INTO entidades(link, titulo,
+                                          valor, fuente, unix, dateStamp, entidad,
+                                          adjetivo) VALUES(?,?,?,?,?,?,?,?)""",
+                                          (link, titulo[0], valor, fuente,
+                                           currentTime, dateStamp, eachEnt,
+                                           eachDesc))
+                                conn.commit()
+
+        except Exception, e:
+            print str(e)
             print "Error en 2do intento"
     except Exception:
         print "Error en 1er intento"
 
-lanacion_scraper()
+pagina12_scraper()
 
 def removeJunk():
     junkWords = ["LA NACION", "Infobae TV"]
@@ -296,3 +303,5 @@ def removeJunk():
         c.execute("DELETE FROM entidades WHERE entidad =?", [(junk)])
         conn.commit()
 removeJunk()
+
+
