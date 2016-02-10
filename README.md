@@ -44,13 +44,13 @@ la idea es seguir añadiendo más:
 * [Página 12](9)
 * [Infobae](10)
 
-[1] http://sentdex.com/
-[2] https://pythonprogramming.net/
-[3] https://www.python.org/
-[4] http://flask.pocoo.org/
-[5] http://getbootstrap.com/
-[6] http://www.pygal.org/en/latest/
-[7] http://www.lanacion.com.ar/
-[8] http://www.clarin.com/
-[9] http://www.pagina12.com.ar
-[10] http://www.infobae.com/
+[1]: http://sentdex.com/
+[2]: https://pythonprogramming.net/
+[3]: https://www.python.org/
+[4]: http://flask.pocoo.org/
+[5]: http://getbootstrap.com/
+[6]: http://www.pygal.org/en/latest/
+[7]: http://www.lanacion.com.ar/
+[8]: http://www.clarin.com/
+[9]: http://www.pagina12.com.ar
+[10]: http://www.infobae.com/
