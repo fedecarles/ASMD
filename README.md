@@ -27,22 +27,22 @@ punto de partida para hacer análisis de sentimiento más sofisticados, lo
 cual me anoto como tarea pendiente.</p>
 
 #### Referencias
-Este sitio está inspirado en [Sentdex](1) y en los tutoriales de
-[Python Programming](2). Excelente recurso para aprender Python.
+Este sitio está inspirado en [Sentdex][1] y en los tutoriales de
+[Python Programming][2]. Excelente recurso para aprender Python.
 
 Las herramientas utilizadas son:
 
-* [Python 2.7](3) + [Flask](4) para el web framework.
-* [Bootstrap](5)
-* [Pygal](6) para los gráficos.
+* [Python 2.7][3] + [Flask][4] para el web framework.
+* [Bootstrap][5]
+* [Pygal][6] para los gráficos.
 
 Los sitios de noticias analizados por ahora son los siguientes, aunque
 la idea es seguir añadiendo más:
 
-* [La Nación](7)
-* [Clarín](8)
-* [Página 12](9)
-* [Infobae](10)
+* [La Nación][7]
+* [Clarín][8]
+* [Página 12][9]
+* [Infobae][10]
 
 [1]: http://sentdex.com/
 [2]: https://pythonprogramming.net/
