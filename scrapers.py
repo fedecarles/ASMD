@@ -295,7 +295,6 @@ def pagina12_scraper():
     except Exception:
         print "Error en 1er intento"
 
-pagina12_scraper()
 
 def removeJunk():
     junkWords = ["LA NACION", "Infobae TV"]
