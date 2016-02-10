@@ -1,5 +1,64 @@
 {% extends "header.html" %}
 
+{% block body %}
 <body>
-{% block body %}{% endblock %}
+    <p>
+    Este sitio "lee" la sección de política de los principales sitios de noticias
+    de Argentina y realiza un simple análisis de sentimiento.
+    </p>
+    <p>
+    En primer lugar, se detectan las <strong>entidades mencionadas</strong>. Estas entiades
+    pueden ser personas, lugares geográficos, países, instutuciones
+    gubernamentales, compañias, etc. 
+    </p>
+    <p>
+    Luego, sobre cada oración donde se encuentra una (1) entidad mencionada, se
+    buscan las <strong>palabras asociadas</strong>, que fueron previamente clasificadas como
+    positivas o negativas (con valores de 1 y -1 respectivamente). Dicha clasificación se hizo de forma mixta,
+    utilizando métodos automáticos para la mayoría, pero con revisiones
+    manuales.
+    </p>
+    <p>
+    Por último se computa el sentimiento para cada entidad, y cada día, como la
+    media de la suma de las palabras asociadas positivas y negativas. 
+    </p>
+    <p>
+    Este modelo también se conoce como "bolsa de palabras", es relativamente
+    simple, y su extensión es limitada. Este modelo no permite
+    detectar correctamente polaridades más sofisticadas. Por ejemplo, si una
+    oración dice "Buenos Aires no es una buena ciudad...", el modelo
+    identificaría "buena", como una palabra positiva, aunque el significado de
+    la oración es claramente negativo. Del mismo modo, los valores en las
+    codificaciones de las palabas asociadas están sujetos a interpretaciones
+    diferentes.
+    </p>
+    <p>Aun así, el modelo de bolsa de palabras puede proporcionar un buen
+    punto de partida para hacer análisi de sentimiento más sofisticados, lo
+    cual me anoto como tarea pendiente.</p>
+
+    <h3>Referencias</h3>
+    <p>Este sitio está inspirado en <a href="http://sentdex.com/" />
+    Sentdex</a> y en los tutoriales de <a href="https://pythonprogramming.net/"
+    />Python Programming</a>. Excelente recurso para aprender Python.
+    </p>
+    <p>Las herramientas utilizadas son:</p>
+    <ul>
+        <li><a href="https://www.python.org/" />Python 2.7</a> + <a
+               href="http://flask.pocoo.org/"/>Flask</a> para el web framework.</li>
+        <li><a href="http://getbootstrap.com/" />Bootstrap</a></li>                                  
+        <li><a href="http://www.pygal.org/en/latest/" />Pygal</a> para los
+            gráficos</li>
+    </ul>    
+         
+    <p>Los sitios de noticias analizados por ahora son los siguientes, aunque
+    la idea es seguir añadiendo más.</p>
+    <ul>
+        <li><a href="http://www.lanacion.com.ar/" />La Nación</a></li>
+        <li><a href="http://www.clarin.com/" />Clarín</a></li>
+        <li><a href="http://www.pagina12.com.ar" />Página 12</a></li>                                 
+        <li><a href="http://www.infobae.com/" />Infobae</a></li>
+    </ul>
+ 
+
 </body>
+{% endblock %}
