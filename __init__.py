@@ -72,8 +72,8 @@ def homepage():
 
 
 @app.route('/comofunciona/', methods=["GET", "POST"])
-def quees():
-    return render_template('quees.html')
+def comofunciona():
+    return render_template('comofunciona.html')
 
 
 if __name__ == "__main__":
