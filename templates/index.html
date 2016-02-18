@@ -22,7 +22,7 @@
 </div>
 <div class="container" id="bottom">
     <div class ="btn-group" id="adjetivos">
-        <p><strong>Palabas asociadas</strong></p>
+        <p><strong>Palabras asociadas (últimos 7 días)</strong></p>
         {% for idx, row in desc.iterrows() %}
         {% if row[0] <= -1 %}
         <button type="button" class="btn btn-default" id="v-1"
@@ -40,20 +40,22 @@
     <div class ="btn-group" id="div-fuentes">
         <p><strong>Fuentes</strong></p>
         <div class ="btn-group" id="fuentes">
-         {% for i in fuente %}
-         <button type="button" class="btn btn-default" id="fuente"
-             name="fuentes" value="{{ i }}">{{ i }}</button>
-         {% endfor %}
-         </div>
-         <br>
-         <br>
-         <ul class="list-group" id="list-urls">
-            {% for i,j in noticias.iterrows() %}
-            <li type="button" class="list-group-item" id="urls" name="fuentes"
+        <button type="button" class="btn btn-default" id="explandurls" name="expandurls" data-toggle="collapse"
+        data-target="#collapseFuentes" aria-expanded="false" aria-controls="collapseFuentes">Expandir fuentes
+        </button>
+        <br>
+        <br>
+        <div class="collapse" id="collapseFuentes">
+        <ul class="list-group" id="list-urls">
+        {% for i,j in sources.iterrows() %}
+            <li class="list-group-item" id="urls" name="lista_fuentes"
             value="{{ i }}"><a href="{{ j[0] }}"</a>{{ i }}</li>
-            {% endfor %}
+        {% endfor %}
         </ul>
+        </div>
+        </div>
      </div>
 </div>
+
 </body>
 {% endblock %}
