@@ -428,4 +428,3 @@ def removeJunk():
     for junk in junkWords:
         c.execute("DELETE FROM entidades WHERE entidad =?", [(junk)])
         conn.commit()
-removeJunk()

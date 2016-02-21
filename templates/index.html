@@ -3,7 +3,7 @@
 <body>
 {% block body %}
 <div class="containter" id="left">
-        <p><strong>Sentimiento General (Top 20 entidades)</strong></p>
+        <p><strong>Top 20 entidades</strong></p>
         {% for i, j in entidades[:20].iterrows() %}
         <form action="" method="post">
             {% if j[0] < 0 %}
