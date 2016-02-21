@@ -410,7 +410,7 @@ class Scraper:
         except Exception:
              print "Falló el scraping"
 
-sc = Scraper()
+# sc = Scraper()
 # sc.scrapeInfobae("http://cdn01.ib.infobae.com/adjuntos/162/rss/politica.xml")
 # sc.scrapeLaNacion("http://contenidos.lanacion.com.ar/herramientas/rss-categoria_id=30")
 # sc.scrapeClarin("http://www.clarin.com/rss/politica/")
