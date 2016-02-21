@@ -8,10 +8,12 @@
         <form action="" method="post">
             {% if j[0] < 0 %}
             <button type="submit" class="list-group-item" id="entneg" name="entidades"
-                value="{{ i }}">{{ i }} </button>
+            value="{{ i }}" src="{{ url_for('static',
+            filename='images/menos.png') }}">{{ i }} </button>
             {% elif j[0] > 0 %}
             <button type="submit" class="list-group-item" id="entpos" name="entidades"
-                value="{{ i }}">{{ i }} </button>
+                value="{{ i }}" src="{{ url_for('static',
+            filename='images/mas.png') }}">{{ i }} </button>
             {% endif %}
         </form>
         {% endfor %}
