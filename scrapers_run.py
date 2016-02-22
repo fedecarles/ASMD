@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from scrapers_test import Scraper, removeJunk
+from scrapers import Scraper, removeJunk
 
 sc = Scraper()
 sc.scrapeInfobae("http://cdn01.ib.infobae.com/adjuntos/162/rss/politica.xml")

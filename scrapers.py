@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 import urllib2
@@ -313,7 +313,7 @@ class Scraper:
                     self.fuente = "INFONEWS"
                     self.titulo = re.findall(r'<title>(.*?)| Política | INFOnews</title>',
                                              self.linkSource.decode('utf-8'))
-
+                    self.titulo = [pars.unescape(i) for i in self.titulo]
                     self.linesOfInterest = re.findall(r'<div itemprop="articleBody" class="article-body">(.*?)div class="article-comments"',
                                                       str(self.linkSource))
                     self.linesOfInterest = [pars.unescape(i) for i in self.linesOfInterest]

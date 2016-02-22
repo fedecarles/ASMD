@@ -27,15 +27,15 @@
         <p><strong>Palabras asociadas (últimos 7 días)</strong></p>
         {% for idx, row in desc.iterrows() %}
         {% if row[0] <= -1 %}
-        <button type="button" class="btn btn-default" id="v-1"
-            name="adjetivos" value="{{ idx }}">{{ idx }}</button>
+        <p id="v-1"
+            name="adjetivos" value="{{ idx }}">{{ idx }}</p>
         {% elif row[0] >= 1 %}
-        <button type="button" class="btn btn-default" id="v1"
-            name="adjetivos" value="{{ idx }}">{{ idx }}</button>
+        <p id="v1"
+            name="adjetivos" value="{{ idx }}">{{ idx }}</p>
         {% else %}
-        <button type="button" class="btn btn-default" id="v0"
+        <p id="v0"
             name="adjetivos" value="{{ idx }}">{{ idx }}
-        </button>
+        </p>
         {% endif %}
         {% endfor %}
     </div>
@@ -45,8 +45,6 @@
         <button type="button" class="btn btn-default" id="explandurls" name="expandurls" data-toggle="collapse"
         data-target="#collapseFuentes" aria-expanded="false" aria-controls="collapseFuentes">Expandir fuentes
         </button>
-        <br>
-        <br>
         <div class="collapse" id="collapseFuentes">
         <ul class="list-group" id="list-urls">
         {% for i,j in sources.iterrows() %}
