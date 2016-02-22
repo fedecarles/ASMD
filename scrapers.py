@@ -17,8 +17,9 @@ cj = CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 
-### Carga la base de datos
+# Carga la base de datos
 conn = sqlite3.connect("/home/fedecarles/asmd/ASMD.db")
+# conn = sqlite3.connect("NewsMonitor.db")
 conn.text_factory = str
 c = conn.cursor()
 
@@ -32,7 +33,7 @@ vis_query = "SELECT link FROM entidades"
 pars = HTMLParser.HTMLParser()
 
 
-### función para cargar las palabras asociadas
+# función para cargar las palabras asociadas
 def loadWordArrays():
     for negRow in c.execute(adj_query, [(-1)]):
         negativeWords.append(negRow[0])
@@ -45,19 +46,19 @@ def loadWordArrays():
     for neuRow in c.execute(adj_query, [(0)]):
         neutralWords.append(neuRow[0])
         allKeyWords.append(neuRow[0])
-
 loadWordArrays()
 
-### función para cargar los links visitados
+# función para cargar los links visitados
 visitedLinks = []
+
+
 def loadVisitedLinks():
     for link in c.execute(vis_query):
         visitedLinks.append(link[0])
-
 loadVisitedLinks()
 
-# La clase scraper tiene 3 funciones separadas para la extracción de
-# las entidades y carga en la base de datos. Las 3 funciones getEntities
+# La clase scraper tiene 3 métodos separadas para la extracción de
+# las entidades y carga en la base de datos. Los 3 métodos getEntities
 # son para manejar los diferentes encodings (utf-8, iso-8859-1, uescape).
 
 # El resto de las funciones de la clase son son específicas a cada sitio de
@@ -311,7 +312,7 @@ class Scraper:
                     self.linkSource = opener.open(self.link).read()
                     self.linkSource = re.sub('\s+', ' ', self.linkSource).strip()
                     self.fuente = "INFONEWS"
-                    self.titulo = re.findall(r'<title>(.*?)| Política | INFOnews</title>',
+                    self.titulo = re.findall(r'<title>(.*?)INFOnews</title>',
                                              self.linkSource.decode('utf-8'))
                     self.titulo = [pars.unescape(i) for i in self.titulo]
                     self.linesOfInterest = re.findall(r'<div itemprop="articleBody" class="article-body">(.*?)div class="article-comments"',
