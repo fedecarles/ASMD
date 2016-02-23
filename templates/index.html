@@ -4,16 +4,16 @@
 {% block body %}
 <div class="containter" id="left">
         <p><strong>Top 20 entidades</strong></p>
-        {% for i, j in entidades[:20].iterrows() %}
+        {% for i, j in entities[:20].iterrows() %}
         <form action="" method="post">
-            {% if j[0] < 0 %}
+            {% if j[2] < 0 %}
             <button type="submit" class="list-group-item" id="entneg" name="entidades"
-            value="{{ i }}" src="{{ url_for('static',
-            filename='images/menos.png') }}">{{ i }} </button>
-            {% elif j[0] > 0 %}
+            value="{{ j[0] }}" src="{{ url_for('static',
+            filename='images/menos.png') }}">{{ j[0] }} </button>
+            {% elif j[2] > 0 %}
             <button type="submit" class="list-group-item" id="entpos" name="entidades"
-                value="{{ i }}" src="{{ url_for('static',
-            filename='images/mas.png') }}">{{ i }} </button>
+                value="{{ j[0] }}" src="{{ url_for('static',
+            filename='images/mas.png') }}">{{ j[0] }} </button>
             {% endif %}
         </form>
         {% endfor %}
