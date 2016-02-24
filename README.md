@@ -43,6 +43,12 @@ la idea es seguir añadiendo más:
 * [Clarín][8]
 * [Página 12][9]
 * [Infobae][10]
+* [Perfil][11]
+* [Telam][12]
+* [Mendoza Online][13]
+* [Los Andes][14]
+* [La Voz][15]
+
 
 [1]: http://sentdex.com/
 [2]: https://pythonprogramming.net/
@@ -54,3 +60,8 @@ la idea es seguir añadiendo más:
 [8]: http://www.clarin.com/
 [9]: http://www.pagina12.com.ar
 [10]: http://www.infobae.com/
+[11]: http://www.perfil.com/
+[12]: http://www.telam.com.ar/
+[13]: http://www.mdzol.com/
+[14]: http://losandes.com.ar/
+[15]: http://www.lavoz.com.ar/
