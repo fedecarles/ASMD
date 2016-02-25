@@ -22,9 +22,9 @@ df = df.sort(['counts', 'dateStamp'], ascending=False)
 
 # Estas son las entidades que aparecen en el listado de la izquierda.
 # Cada entidad esta asociada su ultimo valor medio, que indica si esta
-# en alza o en baja. Primero se agrupan las entidades por entidad y fecha.
-# Luego se resetean los indices y se agrupa nuevamente extrayendo el primer
-# valor (o sea el ultimo) para cada entidad.
+# en alza o en baja. Primero se agrupan las por entidad y fecha.
+# Luego se agrupa nuevamente extrayendo el primer valor (o sea el ultimo dia)
+# para cada entidad.
 entities = df[['entidad', 'dateStamp', 'valor']].groupby(['entidad','dateStamp'],sort=False).mean()
 entities = entities.reset_index()
 entities= entities.groupby(['entidad'], sort=False).head(1)
@@ -33,30 +33,34 @@ entities= entities.groupby(['entidad'], sort=False).head(1)
 
 @app.route('/', methods=["GET", "POST"])
 def homepage():
-    t = []
-    texto = []
-    subset = pd.DataFrame()
-    desc = pd.DataFrame()
+
+    # Contenedores locales.
+    selected_entity = []
+    se_subset = pd.DataFrame()
+    asociated_words = pd.DataFrame()
     sources = pd.DataFrame()
     graph_data = []
-    fuente = []
-    urls = []
+
+    # Las lineas que siguen son las acciones del lado del servidor que
+    # corren cada vez que el usuario hace click en una entidad.
+
     if request.method == 'POST':
-        t = request.form.get('entidades', None)
-        subset = df[df.entidad == t]
-        subset = subset.sort(['dateStamp'])
-        texto = list(subset['adjetivo'])
-        ultima_semana = subset['dateStamp'].iloc[-7]
-        ultimo_subset = subset[subset.dateStamp == ultima_semana]
-        fuente = list(pd.unique(ultimo_subset.fuente.ravel()))
+        selected_entity = request.form.get('entidades', None)
+        se_subset = df[df.entidad == selected_entity]
+        se_subset = se_subset.sort(['dateStamp'])
+        last_week_days = se_subset['dateStamp'].iloc[-7]
+        last_week_subset = se_subset[se_subset.dateStamp == last_week_days]
 
-        desc = (ultimo_subset[['adjetivo', 'valor']].groupby('adjetivo').sum().
-                sort('valor', ascending=False))
 
-        urls = list(pd.unique(ultimo_subset.link.ravel()))
-        titles = list(pd.unique(ultimo_subset.titulo.ravel()))
+        asociated_words = (last_week_subset[['adjetivo', 'valor']]
+                           .groupby('adjetivo').sum()
+                           .sort('valor', ascending=False))
+
+        urls = list(pd.unique(last_week_subset.link.ravel()))
+        titles = list(pd.unique(last_week_subset.titulo.ravel()))
         sources = pd.DataFrame(urls, titles)
 
+        # Creacion del grafico con Pygal.
 
         custom_style = Style(background='transparent',
                              plot_background='transparent',
@@ -68,17 +72,18 @@ def homepage():
                            plot_background="transparent", margin=0,
                            style=custom_style, show_minor_x_labels = False)
 
-        graph.title = "Sentimiento para '"+t+"'"
-        agg = subset.groupby('dateStamp').mean()
-        graph.add(t, list(agg['valor']))
+        graph.title = "Sentimiento para '"+selected_entity+"'"
+        agg = se_subset.groupby('dateStamp').mean()
+        graph.add(selected_entity, list(agg['valor']))
         date = pd.DatetimeIndex(agg.index)
         graph.x_labels = map(str, date)
         graph.x_labels_major = map(str, date[0::5])
         graph_data = graph.render_data_uri()
 
-    return render_template('index.html', entities=entities, texto=texto,
-                           fuente=fuente, graph_data=graph_data, desc=desc,
-                           subset=subset, sources=sources)
+    return render_template('index.html', entities=entities,
+                           graph_data=graph_data,
+                           asociated_words=asociated_words,
+                           se_subset=se_subset, sources=sources)
 
 
 
