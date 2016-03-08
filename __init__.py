@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from flask import Flask, render_template
 from flask import request
 import sqlite3
@@ -74,7 +77,10 @@ def homepage():
 
         graph.title = "Sentimiento para '"+selected_entity+"'"
         agg = se_subset.groupby('dateStamp').mean()
-        graph.add(selected_entity, list(agg['valor']))
+        m_avg = pd.rolling_mean(agg, 3)
+        m_avg = m_avg.fillna(0)
+        # graph.add(selected_entity, list(agg['valor']))
+        graph.add(selected_entity, list(m_avg['valor']))
         date = pd.DatetimeIndex(agg.index)
         graph.x_labels = map(str, date)
         graph.x_labels_major = map(str, date[0::5])
