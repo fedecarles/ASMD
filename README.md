@@ -1,3 +1,10 @@
+Este proyecto ya no está hosteado. Funcionó desde febrero 2016 hasta febrero 2017.
+
+![ASMD1](/static/images/asmd1.png)
+![ASMD2](/static/images/asmd2.png)
+![ASMD3](/static/images/asmd3.png)
+
+
 fedecarles.pythonanywhere.com
 
 Este sitio "lee" la sección de política de los principales sitios de noticias
